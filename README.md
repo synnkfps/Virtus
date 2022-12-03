@@ -1,4 +1,4 @@
-# Pyfuscator
+# Virtus
 Obfuscates your Python code so ppl cant skid it (i mean they can), i THINK it cannot be deobfuscated.
 
 Some letters that works in Python 3.7+ may not work with Python 3.10+ (or vice-versa). So you may change the transformer letters that is commented.
