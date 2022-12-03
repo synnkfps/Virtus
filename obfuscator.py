@@ -28,9 +28,9 @@ transformer = {
     'm': 'str(ModuleNotFoundError).lower()[(True+True+True+True)*(True+True)]',
     'n': "'abcdefghijklmnopqrstuvwxyz'[len('abcdefghijklmnopqrstuvwxyz')-len('abcdefghijklmnopqrstuvwxyz')+len('abcdefghijklmnopqrstuvwxyz')-13]",
     'o': 'str(ModuleNotFoundError).lower()[(True+True+True+True)*(True+True)+True]',
-    'p': "'abcdefghijklmnopqrstuvwxyz'[BrokenPipeError.__basicsize__-100+3]",
+    'p': "'abcdefghijklmnopqrstuvwxyz'[BrokenPipeError.__basicsize__-100+3]", # 100+11 for python 3.7.8+
     'q': 'str(quit)[(True+True)**2]',
-    'r': "'abcdefghijklmnopqrstuvwxyz'[hasattr.__sizeof__()-40+9]",
+    'r': "'abcdefghijklmnopqrstuvwxyz'[hasattr.__sizeof__()-40+9]", # 40+1 for python 3.7.8+
     's': '\'s\'',
     't': 'str(TimeoutError)[14]'.strip(),
     'u': '\'u\'',
@@ -39,22 +39,35 @@ transformer = {
     'x':'\'x\'',
     'y':'\'y\'',
     'z':'\'z\'',
-    '\n': '\n',
+    '\\n': '\n',
+    '\\t': '\t',
     ':': '\':\'',
     ',': '\',\'',
     ';':'\';\'',
+    '+': '\'+\'',
+    '.': '\'.\'',
+    '*': '\'*\'',
+    '=': '\'=\'',
+    '\\': r'\\',
+    '>': 'str(MemoryError)[-True]',
+    '<': 'str(BrokenPipeError)[False]',
     ' ': 'str(MemoryError)[6]',
     '\'': r'str(object)[6-3-False-3+6+6-6+6-6-6+6-3-3-False+6+6-6+6-6-6+6-3-3+6-False+6-6+6-6-6+6-3-False-3+6+6-6+6-6-6+6-3-3+6+6-6-False+6-6-6+6-3-3+6+6-6+6-6-6+6+True]',
     '"': r'str(object)[6-3-False-3+6+6-6+6-6-6+6-3-3-False+6+6-6+6-6-6+6-3-3+6-False+6-6+6-6-6+6-3-False-3+6+6-6+6-6-6+6-3-3+6+6-6-False+6-6-6+6-3-3+6+6-6+6-6-6+6+True]',
+    '[': "str(list(tuple(list(tuple([0x128, False]+[0x256, True]+[bytes('ordinalCoordinate', 'utf-16')])))))[False]",
+    ']': "str(str(BlockingIOError)+str([]) + str(list(tuple(list(tuple([0x128, False]+[0x256, True]+[bytes('ordinalCoordinate', 'utf-16'), ])))))[False])[-2]",
     '(': 'str(tuple(list(([0o256, 0x123, 0x128, 0x512, 0x1024, 0x2048, 0x4096, 0x8192, 0x1691823, 0x32767febcdefaeaeaeae0f0f0f0f0fababe]))))[False]',
     ')': 'str(tuple(list(([0o256, 0x123, 0x128, 0x512, 0x1024, 0x2048, 0x4096, 0x8192, 0x1691823, 0x32767febcdefaeaeaeae0f0f0f0f0fababe]))))[-True]'
 }
 
 code = """
-for i in range(10): print(i)
+for i in range(10):
+    for j in range(5):
+        print(i*j, end=' ', sep=' ')
 """
 
 stuff=[]
+raw = ''''''
 
 def obfuscate(str):
     tmp = []
@@ -64,12 +77,15 @@ def obfuscate(str):
 s = ''
 
 for i in code.splitlines():
-    stuff.append(obfuscate(i))
+    print(rf'{i}')
+    raw += i + '\n'
+    stuff.append(obfuscate(i)+'\n')
 
 for i in stuff:
     if i!='exec()':
-        print(i)
+        #print('\n' in i)
         s+=i 
 
-exec(s)
-
+print(s)
+print(raw)
+exec(raw)
