@@ -2,6 +2,17 @@ import sys
 sys.getdefaultencoding()
 
 transformer = {
+    '1': '\'1\'',
+    '2': '\'2\'',
+    '3': '\'3\'',
+    '4': '\'4\'',
+    '5': '\'5\'',
+    '6': '\'6\'',
+    '7': '\'7\'',
+    '8': '\'8\'',
+    '9': '\'9\'',
+    '0': '\'0\'',
+
     'a': 'str(hash)[-2**2**1**69420]',
     'b': 'str(hash)[True**True+False+False**1**(True**69*69**420)]',
     'c': 'str(hash)[-int(eval("12-eval(\'True**1**129391231239129391231923912939129312.31297361278361287361728367811\')"))]',
@@ -23,13 +34,15 @@ transformer = {
     's': '\'s\'',
     't': 'str(TimeoutError)[14]'.strip(),
     'u': '\'u\'',
-    'v': '',
+    'v': '\'v\'',
     'w':'\'w\'',
-    'x':'',
-    'y':'',
-    'z':'',
+    'x':'\'x\'',
+    'y':'\'y\'',
+    'z':'\'z\'',
     '\n': '\n',
-    ';':';',
+    ':': '\':\'',
+    ',': '\',\'',
+    ';':'\';\'',
     ' ': 'str(MemoryError)[6]',
     '\'': r'str(object)[6-3-False-3+6+6-6+6-6-6+6-3-3-False+6+6-6+6-6-6+6-3-3+6-False+6-6+6-6-6+6-3-False-3+6+6-6+6-6-6+6-3-3+6+6-6-False+6-6-6+6-3-3+6+6-6+6-6-6+6+True]',
     '"': r'str(object)[6-3-False-3+6+6-6+6-6-6+6-3-3-False+6+6-6+6-6-6+6-3-3+6-False+6-6+6-6-6+6-3-False-3+6+6-6+6-6-6+6-3-3+6+6-6-False+6-6-6+6-3-3+6+6-6+6-6-6+6+True]',
@@ -38,8 +51,7 @@ transformer = {
 }
 
 code = """
-print('oi')
-print('morra')
+for i in range(10): print(i)
 """
 
 stuff=[]
@@ -49,12 +61,15 @@ def obfuscate(str):
     for i in str: tmp.append(transformer[i])
     return f'exec({"+".join(tmp)})'
 
-s = ''''''
+s = ''
 
 for i in code.splitlines():
     stuff.append(obfuscate(i))
 
 for i in stuff:
     if i!='exec()':
-        exec(i)
+        print(i)
+        s+=i 
+
+exec(s)
 
