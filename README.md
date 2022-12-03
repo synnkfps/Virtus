@@ -1,6 +1,8 @@
 # Pyfuscator
 Obfuscates your Python code so ppl cant skid it (i mean they can)
 
+Some letters that works in Python 3.7+ may not work with Python 3.10+ (or vice-versa). So you may change the transformer letters that is commented.
+
 ### Todo
 - [X] Multi-line support
 - [ ] Works with every code (including for loops)
