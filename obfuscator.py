@@ -19,7 +19,7 @@ transformer = {
     'o': 'str(ModuleNotFoundError).lower()[(True+True+True+True)*(True+True)+True]',
     'p': "'abcdefghijklmnopqrstuvwxyz'[BrokenPipeError.__basicsize__-100+3]",
     'q': 'str(quit)[(True+True)**2]',
-    'r': "'abcdefghijklmnopqrstuvwxyz'[hasattr.__sizeof__()-40+1]",
+    'r': "'abcdefghijklmnopqrstuvwxyz'[hasattr.__sizeof__()-40+9]",
     's': '\'s\'',
     't': 'str(TimeoutError)[14]'.strip(),
     'u': '\'u\'',
@@ -37,7 +37,12 @@ transformer = {
     ')': 'str(tuple(list(([0o256, 0x123, 0x128, 0x512, 0x1024, 0x2048, 0x4096, 0x8192, 0x1691823, 0x32767febcdefaeaeaeae0f0f0f0f0fababe]))))[-True]'
 }
 
-code = """print('oi'); print('morra')"""
+code = """
+print('oi')
+print('morra')
+"""
+
+stuff=[]
 
 def obfuscate(str):
     tmp = []
@@ -47,11 +52,9 @@ def obfuscate(str):
 s = ''''''
 
 for i in code.splitlines():
-    s += obfuscate(i)
+    stuff.append(obfuscate(i))
 
-print(s)
-print('\nCode:\n'+code+'\n')
-print('Python 3.11 Compiled: ')
-exec(s)
+for i in stuff:
+    if i!='exec()':
+        exec(i)
 
-#print(str(lambda x:x)[11])
