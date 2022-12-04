@@ -1,91 +1,100 @@
-import sys
-sys.getdefaultencoding()
+import random
+import datetime
+import os
 
-transformer = {
-    '1': '\'1\'',
-    '2': '\'2\'',
-    '3': '\'3\'',
-    '4': '\'4\'',
-    '5': '\'5\'',
-    '6': '\'6\'',
-    '7': '\'7\'',
-    '8': '\'8\'',
-    '9': '\'9\'',
-    '0': '\'0\'',
+file = open(os.environ["HOMEPATH"] + "\Desktop\output.py", 'w')
 
-    'a': 'str(hash)[-2**2**1**69420]',
-    'b': 'str(hash)[True**True+False+False**1**(True**69*69**420)]',
-    'c': 'str(hash)[-int(eval("12-eval(\'True**1**129391231239129391231923912939129312.31297361278361287361728367811\')"))]',
-    'd': 'str(id)[-True-True+True-True]',
-    'e': "str(str(str(BufferError)*len(str(MemoryError)))[75-int(eval('True+True+True+True+True+True'))+int(eval('True+True+True+True+True+True-False+True+True+True'))+69-420+6+9-True]).lower()",
-    'f': rf"'0x256f勒屁艾娜伊杰艾 开儿 迪艾西艾迪艾伊 艾 吉诶哦伊 屁 弗勒 艾屁西艾 儿勒屁艾娜伊杰艾 开儿 迪艾西艾 勒艾 儿勒屁艾 开勒屁哦吉 儿勒屁 艾屁西艾艾艾弗 弗勒迪 诶娜娜 开勒哦吉伊艾艾屁西艾伊艾'[{'abcdefghijklmnopqrstuvwxyz'.index(str(str(str(BufferError)*len(str(MemoryError)))[75-int(eval('True+True+True+True+True+True'))+int(eval('True+True+True+True+True+True-False+True+True+True'))+69-420+6+9-True]).lower())}+1]",
-    'g': f"'0x2567gew78qeh8qwh78ehq789w§§§§§§§§ªºªef'[{'abcdefghijklmnopqrstuvwxyz'.index(str(str(str(BufferError)*len(str(MemoryError)))[75-int(eval('True+True+True+True+True+True'))+int(eval('True+True+True+True+True+True-False+True+True+True'))+69-420+6+9-True]).lower())}+1+1]",
-    'h': "'§0x1123abc⎲h.256㊈'[(True**1)+len('⒣⒠⒧⒧⒪!⎲⎲⎲⎲')]",
-    'i': "str(BrokenPipeError)[15+(True**5)-1]",
-    'j': '"0x256 0x512hj0a"[-3]',
-    'k': "'≧⏝≦伊Gk107事㌹f勒屁艾娜伊杰艾 开儿 迪艾西艾迪艾ｼｲｩ ｲｮｱｪ 伊杰艾㊆g㊆㊋ｱｮ㊘'[True*5]",
-    'l':'str(lambda x:x)[11]',
-    'm': 'str(ModuleNotFoundError).lower()[(True+True+True+True)*(True+True)]',
-    'n': "'abcdefghijklmnopqrstuvwxyz'[len('abcdefghijklmnopqrstuvwxyz')-len('abcdefghijklmnopqrstuvwxyz')+len('abcdefghijklmnopqrstuvwxyz')-13]",
-    'o': 'str(ModuleNotFoundError).lower()[(True+True+True+True)*(True+True)+True]',
-    'p': "'abcdefghijklmnopqrstuvwxyz'[BrokenPipeError.__basicsize__-100+3]", # 100+11 for python 3.7.8+
-    'q': 'str(quit)[(True+True)**2]',
-    'r': "'abcdefghijklmnopqrstuvwxyz'[hasattr.__sizeof__()-40+9]", # 40+1 for python 3.7.8+
-    's': '\'s\'',
-    't': 'str(TimeoutError)[14]'.strip(),
-    'u': '\'u\'',
-    'v': '\'v\'',
-    'w':'\'w\'',
-    'x':'\'x\'',
-    'y':'\'y\'',
-    'z':'\'z\'',
-    '\\n': '\n',
-    '\\t': '\t',
-    ':': '\':\'',
-    ',': '\',\'',
-    ';':'\';\'',
-    '+': '\'+\'',
-    '.': '\'.\'',
-    '*': '\'*\'',
-    '=': '\'=\'',
-    '\\': r'\\',
-    '>': 'str(MemoryError)[-True]',
-    '<': 'str(BrokenPipeError)[False]',
-    ' ': 'str(MemoryError)[6]',
-    '\'': r'str(object)[6-3-False-3+6+6-6+6-6-6+6-3-3-False+6+6-6+6-6-6+6-3-3+6-False+6-6+6-6-6+6-3-False-3+6+6-6+6-6-6+6-3-3+6+6-6-False+6-6-6+6-3-3+6+6-6+6-6-6+6+True]',
-    '"': r'str(object)[6-3-False-3+6+6-6+6-6-6+6-3-3-False+6+6-6+6-6-6+6-3-3+6-False+6-6+6-6-6+6-3-False-3+6+6-6+6-6-6+6-3-3+6+6-6-False+6-6-6+6-3-3+6+6-6+6-6-6+6+True]',
-    '[': "str(list(tuple(list(tuple([0x128, False]+[0x256, True]+[bytes('ordinalCoordinate', 'utf-16')])))))[False]",
-    ']': "str(str(BlockingIOError)+str([]) + str(list(tuple(list(tuple([0x128, False]+[0x256, True]+[bytes('ordinalCoordinate', 'utf-16'), ])))))[False])[-2]",
-    '(': 'str(tuple(list(([0o256, 0x123, 0x128, 0x512, 0x1024, 0x2048, 0x4096, 0x8192, 0x1691823, 0x32767febcdefaeaeaeae0f0f0f0f0fababe]))))[False]',
-    ')': 'str(tuple(list(([0o256, 0x123, 0x128, 0x512, 0x1024, 0x2048, 0x4096, 0x8192, 0x1691823, 0x32767febcdefaeaeaeae0f0f0f0f0fababe]))))[-True]'
-}
-
-code = """
-for i in range(10):
-    for j in range(5):
-        print(i*j, end=' ', sep=' ')
+s = """
+print(' '.join(list('obfuscation')))
 """
 
-stuff=[]
-raw = ''''''
+# 0-10 ranges
+FALSE_VARIATION = 10 # amount of n-0 (fake math) to be generated on the code
+PIPED_VARIATION = 10 # amount of bitwise xor stuff to be generated on the code
 
-def obfuscate(str):
-    tmp = []
-    for i in str: tmp.append(transformer[i])
-    return f'exec({"+".join(tmp)})'
+DEBUG = False
 
-s = ''
+obf=[]
+obfieds=[]
 
-for i in code.splitlines():
-    print(rf'{i}')
-    raw += i + '\n'
-    stuff.append(obfuscate(i)+'\n')
+# Test each chr (n(O)) to be checked until you get the right thing
+for e in s:
+    for i in range(10000):
+        if chr(i) == e:
+            obf.append(i)
 
-for i in stuff:
-    if i!='exec()':
-        #print('\n' in i)
-        s+=i 
+print('Char Table =', obf)
 
-print(s)
-print(raw)
-exec(raw)
+# Main system
+for i in obf:
+    build = ''
+    chance = 90
+
+    if DEBUG: print(f'>>> Obfuscating char {i}')
+
+    # Inside the while loop we use [:-1] because the last symbol isnt recognized (+ or -)
+    while True:
+        rng = random.randrange(100) >= chance
+        if rng: 
+            build += 'True+'
+
+            # Settings usage
+            if random.randrange(11)<PIPED_VARIATION: build += random.choice(['(not False|False|True|False|True)+', '((True ^ False | 128 | 256 | 1024 | 2048 | 4096)-0x1d81)+'])
+            if random.randrange(11)<FALSE_VARIATION: build += 'False+'
+
+        else: 
+            build+='True-'
+            # Settings usage
+            if random.randrange(11)<PIPED_VARIATION: build += random.choice(['(len(str(KeyError)*0x3)-0x36)-', '((1|0x128*512*1024|128&(1^2^4^8^16^32^64^128^256^512^1024^2048))-0x128*512*1024-0xf-0xf-0xf-0xf-69)-'])
+            if random.randrange(11)<FALSE_VARIATION: build += 'False-'
+
+        # Chance system
+        # Flutuates depending of how far is the built TrueFalse string length, greater -> chance to subtract it is higher
+        if eval(build[:-1])>i: chance += 5
+        else: chance -= 5
+
+        if eval(build[:-1])==i:
+            obfieds.append(build[:-1])
+            if DEBUG: print(f'>> Successfully obfuscated {i}, total length is now {len(obfieds[-1])}')
+            break 
+        # print(rng)
+else:
+    print(f'\n>>> Finished Obfuscating {len(obf)} characters! <<<')
+
+
+# Obfuscated code variables
+li = 'lI'
+gen = ''
+separator = 'nothing_to_see_here'
+sep=''
+index=''
+
+AGGRESSIVENESS = {
+    'Variable Size':64, # length of the lilililililili variable
+    'Separator Size':128, # length of each character separation
+    'Index Size':8192 # length of the i (for i) variable name
+}
+
+print(f'>>> Writing the obfuscated code to file {file.name}')
+
+# High values = more time to obfuscate but harder to understand the code.
+for i in range(AGGRESSIVENESS['Variable Size']): gen+=random.choice(list(li))
+for i in range(AGGRESSIVENESS['Separator Size']): sep+=random.choice(list(separator))
+for i in range(AGGRESSIVENESS['Index Size']): index+=random.choice(list(separator))
+
+# troll
+output = f'# synthetic $ field {hex(len(f"{sep}".join(obfieds)))}\n{gen}=\"{f"{sep}".join(obfieds)}\"\n{gen[::-1]}=""\nfor {index} in {gen}.split("{sep}"): {gen[::-1]}+=chr(eval({index}))\nexec({gen[::-1]})\n\n# Auto-Generated\n# {datetime.datetime.now()}'
+
+raw = [chr(eval(i)) for i in obfieds]
+
+print(f'{"-"*30}\nReal (compiled) code:\n'+''.join(raw).strip())
+#print(output)
+
+# Copy to clipboard
+file.write(output)
+print(f'\n>>> Successfully wrote {len(output)} characters of code to {file.name}!')
+file.close()
+
+print(f'{"-"*30}\nPython 3.11.0 Compiled: \n')
+exec(output)
+print('-'*30)
