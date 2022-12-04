@@ -1,13 +1,17 @@
 import random
 import datetime
+import subprocess
+import os
+
+file = open(os.environ["HOMEPATH"] + "\Desktop\output.txt", 'w')
 
 s = """
-print('hello, world!')
+for i in 'obfuscation': print(i)
 """
 
 # 0-10 ranges
-FALSE_VARIATION = 2 # amount of n-0 (fake math) to be generated on the code
-PIPED_VARIATION = 1 # amount of bitwise xor stuff to be generated on the code
+FALSE_VARIATION = 10 # amount of n-0 (fake math) to be generated on the code
+PIPED_VARIATION = 10 # amount of bitwise xor stuff to be generated on the code
 
 obf=[]
 obfieds=[]
@@ -57,19 +61,28 @@ for i in obf:
 
 li = 'lI'
 gen = ''
+separator = 'nothing_to_see_here'
+sep=''
+index=''
 
 for i in range(64): gen+=random.choice(list(li))
+for i in range(128): sep+=random.choice(list(separator))
+for i in range(8192): index+=random.choice(list(separator))
 
 # troll
-output = f'# synthetic $ field {hex(len(gen))}\n{gen}=\"{"$".join(obfieds)}\"\n{gen[::-1]}=""\nfor i in {gen}.split("$"): {gen[::-1]}+=chr(eval(i))\nexec({gen[::-1]})\n\n# Auto-Generated\n# {datetime.datetime.now()}'
+output = f'# synthetic $ field {hex(len(gen))}\n{gen}=\"{f"{sep}".join(obfieds)}\"\n{gen[::-1]}=""\nfor {index} in {gen}.split("{sep}"): {gen[::-1]}+=chr(eval({index}))\nexec({gen[::-1]})\n\n# Auto-Generated\n# {datetime.datetime.now()}'
 
 print(f'{"-"*30}\n Generated variable string:',gen)
-
 
 raw = [chr(eval(i)) for i in obfieds]
 
 print(f'{"-"*30}\nReal (compiled) code:\n'+''.join(raw).strip())
 #print(output)
+
+# Copy to clipboard
+file.write(output)
+print(f'Saved to {file}!')
+file.close()
 
 print(f'{"-"*30}\nPython 3.11 Compiled: \n')
 exec(output)
