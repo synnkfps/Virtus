@@ -1,5 +1,7 @@
 # Alternative Stuff
+
 ## TrueFalse Obfuscator
+
 Transforms your code into char sequencies converted to True and False sequencies, e.g:
 `for i in 'obfuscation': print(i)` 
 =
