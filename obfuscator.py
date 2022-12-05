@@ -18,10 +18,9 @@ obf=[]
 obfieds=[]
 
 # Test each chr (n(O)) to be checked until you get the right thing
+# better way to do it, thanks Harold
 for e in s:
-    for i in range(10000):
-        if chr(i) == e:
-            obf.append(i)
+    obf.append(ord(e))
 
 print('Char Table =', obf)
 
