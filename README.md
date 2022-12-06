@@ -15,3 +15,4 @@ Change the `s` string inside the obfuscator.py file with your Python code.
 
 ## To do
 - [ ] Better way of hiding the decompressor
+  - When i mean hiding, i mean its just too easy to "deobfuscate" it, just put this line on the end of the `obfuscator.py` file and you get the src code: `exec(open(os.environ["HOMEPATH"] + "\Desktop\output.py").read().replace('exec', 'print'))`
