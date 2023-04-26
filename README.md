@@ -7,7 +7,7 @@ turns into<br>
 ![image](https://user-images.githubusercontent.com/93355393/234700188-e0adb28e-f874-495c-99aa-97d3465db4d6.png)
 
 Obfuscating settings/output: <br>
-![image](https://user-images.githubusercontent.com/93355393/234700299-45f38bf7-ef4a-4097-b926-5ca8eb6d7bd9.png)
+![image](https://user-images.githubusercontent.com/93355393/234700699-a8234e5e-7802-42bc-b12c-ac57c04d6253.png)
 <br>
 - FALSE_VARIATION: 1
 - PIPED_VARIATION: 2
